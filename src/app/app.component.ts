@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, ValidatorFn, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -12,7 +12,7 @@ export class AppComponent {
   constructor(private fb: FormBuilder) {}
 
   myForm = this.fb.group({
-    'username': ['', Validators.required],
+    'username': ['', [Validators.required, Validators.minLength(3), Validators.maxLength(10)]],
     'email': ['', [Validators.required, Validators.email]],
     'password': ['', Validators.required],
     'confirmPassword': ['', Validators.required],
@@ -29,6 +29,7 @@ export class AppComponent {
     console.log(this.myForm);
     this.myForm.reset();
   }
+
 
 }
 

@@ -6,7 +6,11 @@
       <div class="form-group">
         <label for="username">Uesername</label>
         <input type="text" id="username" class="form-control" formControlName='username'>
-        <span *ngIf="this.myForm.get('username')!.invalid && this.myForm.get('username')!.touched"> This field is required</span>
+        <span *ngIf="this.myForm.get('username')!.invalid && this.myForm.get('username')!.touched">
+          <span *ngIf="this.myForm.get('username')!.errors?.required">this field is reqiured</span>
+          <span *ngIf="this.myForm.get('username')!.errors?.minlength">Username must be at least 3 charctors</span>
+          <span *ngIf="this.myForm.get('username')!.errors?.maxlength">Username should be less than 11</span>
+        </span>
       </div>
       <div class="form-group">
         <label for="email">Email</label>
@@ -45,11 +49,16 @@
             name="Status" 
             formControlName='Status'
             [value]="userStatus"
-            > 
-            {{userStatus}}
+        > 
+          {{userStatus}}
         </label>
       </div>
-      <button class="btn btn-primary" type="submit" style="padding: 8px; margin-top: 20px;">Submit Form</button>
+      <button 
+        class="btn btn-primary" 
+        type="submit" 
+        style="padding: 8px; margin-top: 20px;" 
+        [disabled]="this.myForm.invalid">Submit Form
+      </button>
     </form>
   </div>
 </div>
